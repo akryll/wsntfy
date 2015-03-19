@@ -13,9 +13,9 @@
     },
     "repository": {
         "type": "git",
-        "url": "git://github.com/akryll"
+        "url": "git://github.com/akryll/wsntfy.git"
     },
     "bugs": {
-        "url": "http://github.com/YOUR_LOGIN/yii/issues"
+        "url": "http://github.com/akryll/wsntfy/issues"
     }
 }
