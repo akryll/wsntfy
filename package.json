@@ -1,0 +1,21 @@
+{
+    "name": "WebSocket Push-Notify",
+    "description": "Fast and furious notify service! by Akryll!",
+    "version": "0.9.7",
+    "main": "app.js",
+    "author": {
+        "name": "Akryll",
+        "email": "admin@ideyniy.ru"
+    },
+    "keywords": [],
+    "licenses": {
+        "type": "none"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/akryll"
+    },
+    "bugs": {
+        "url": "http://github.com/YOUR_LOGIN/yii/issues"
+    }
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Live Notify System</title>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/noty/packaged/jquery.noty.packaged.min.js"></script>
+<link rel="stylesheet" type="text/css" href="js/buttons.css"/>
+<script>
+$(document).ready(function () {
+	var connection;
+	var nickname = prompt("Выберите имя");
+	if (nickname) {
+		connection = new WebSocket("ws://"+window.location.hostname+":8081");
+		connection.onopen = function () {
+			console.log('Connected!');
+			connection.send(nickname);
+			document.getElementById("form").onsubmit = function (event) {
+				var msg = document.getElementById("msg");
+				if (msg.value){
+					connection.send(msg.value);
+				}
+				msg.value = "";
+				event.preventDefault();
+			}	
+		}
+		connection.onclose = function () {
+			console.log('Disconnected!');
+		}
+		connection.onerror = function () {
+			console.log('Error!');
+		}
+		connection.onmessage = function (event) {
+			noty(JSON.parse(event.data));
+			console.log(JSON.parse(event.data));
+		}
+	}
+});
+
+$(document).ready(function(){
+	$.noty.defaults = {
+    layout: 'bottomRight',
+    theme: 'defaultTheme',
+    type: 'alert',
+    text: '', // can be html or string
+    dismissQueue: true, // If you want to use queue feature set this true
+    template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+    animation: {
+        open: {height: 'toggle'},
+        close: {height: 'toggle'},
+        easing: 'swing',
+        speed: 500 // opening & closing animation speed
+    },
+    timeout: false, // delay for closing event. Set false for sticky notifications
+    force: false, // adds notification to the beginning of queue when set to true
+    modal: false,
+    maxVisible: 10, // you can set max visible notification for dismissQueue true option,
+    killer: false, // for close all notifications before show
+    closeWith: ['button'], // ['click', 'button', 'hover', 'backdrop'] // backdrop click will close all open notifications
+    callback: {
+        onShow: function() {},
+        afterShow: function() {},
+        onClose: function() {},
+        afterClose: function() {}
+    },
+	    buttons: false // an array of buttons
+	};
+});
+
+</script>
+</head>
+
+<body>
+<h1>Это нормально! Не уходи!</h1>
+</body>
+</html>
